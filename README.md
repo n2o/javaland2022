@@ -39,7 +39,8 @@ Hier ist ein kleines Video, um in VSCode eine Babashka REPL zu starten und den
 Editor damit zu verbinden. Dann können wir den Code direkt aus dem Editor in die
 REPL schicken.
 
-![Jack In mit Calva](assets/repl_jack_in.mp4)
+https://user-images.githubusercontent.com/1507474/158079767-1ce0f306-5c46-4d72-b284-29fa089d153d.mp4
+
 
 ### Tastenkürzel Empfehlungen
 
