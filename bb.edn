@@ -1,0 +1,5 @@
+{:paths ["scripts"]
+ :tasks {:requires ([babashka.fs :as fs])
+         clean {:doc "Clean project"
+                :task (do (println "Clean target") ;; (shell "rm -rf target/")
+                          (fs/delete-tree "target/"))}}}

@@ -25,7 +25,7 @@
 
 (->> all-meetups
      (sort-by :local_date)
-     #_reverse
+     reverse
      (map :name))
 
 (comment
