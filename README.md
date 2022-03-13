@@ -25,8 +25,8 @@ Scripts im Ordner `scripts`.
 
 * babashka ([Quickstart](https://github.com/babashka/babashka#quickstart), [Installation](https://github.com/babashka/babashka#installation))
 * Editor, wir werden mit VS Code arbeiten
-** [VSCode herunterladen](https://code.visualstudio.com/)
-** [Calva Plugin installieren](https://marketplace.visualstudio.com/items?itemName=betterthantomorrow.calva)
+  * [VSCode herunterladen](https://code.visualstudio.com/)
+  * [Calva Plugin installieren](https://marketplace.visualstudio.com/items?itemName=betterthantomorrow.calva)
 
 ## Editor einrichten
 
