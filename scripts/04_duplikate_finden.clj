@@ -22,7 +22,7 @@
 (defn candidates-by-fn [f]
   (fn [files]
     (map second (remove (fn [[size vs]] (= 1 (count vs)))
-                        (group-by fs/size files)))))
+                        (group-by f files)))))
 
 (def candidates-by-size (candidates-by-fn fs/size))
 
