@@ -26,25 +26,30 @@
 
 (def candidates-by-size (candidates-by-fn fs/size))
 
-(def candidates-by-partial-md5 (candidates-by-fn (partial md5 1024)))
+(def candidates-by-md5 (candidates-by-fn (partial md5 1024)))
 
-(def candidates-by-equality (candidates-by-fn (partial sha 256)))
+(def candidates-by-sha (candidates-by-fn (partial sha 256)))
 
-(defn duplicates [dir glob]
-  (->>
-   (load-files dir glob)
-   (candidates-by-size)
-   (reduce concat)
-   (candidates-by-partial-md5)
-   (mapcat candidates-by-equality)))
+(defn iprintln [& text])
 
 (defn scan-for-duplicates! [dir glob]
-  (doseq [[ff & fs] (duplicates dir glob)]
-    (println "============================================")
-    (println (format "Duplicate(s) of %s:%n" ff))
-    (doseq [f fs]
-      (println f))
-    (println)))
+  (let [by-size (candidates-by-size (load-files dir glob))
+        partitions (count by-size)]
+    (iprintln "Eliminated files with unique size. Starting detail scan on" partitions "partitions.")
+    (doseq [[idx files] (map vector (map inc (range)) by-size)]
+      (iprintln "Analyzing" idx "/" partitions)
+      (let [by-md5 (candidates-by-md5 files)
+            partitions (count by-md5)]
+        (iprintln " ** Eliminated files with unique partial md5 hashcode. Starting detail scan on" partitions "partitions.")
+         (doseq [[idx files] (map vector (map inc (range)) by-md5)]
+            (iprintln "Analyzing sup partition" idx "/" partitions)
+             (let [by-sha (candidates-by-sha files)]
+               (doseq [[ff & fs] by-sha]
+               (println "============================================")
+               (println (format "Duplicate(s) of %s:%n" ff))
+               (doseq [f fs] (println f))
+               (println))))))))
+
 
 (if (= 2 (count *command-line-args*))
   (apply scan-for-duplicates! *command-line-args*)
