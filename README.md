@@ -26,12 +26,11 @@ Scripts im Ordner `scripts`.
 * babashka ([Quickstart](https://github.com/babashka/babashka#quickstart), [Installation](https://github.com/babashka/babashka#installation))
 * Editor, wir werden mit VS Code arbeiten
   * [VSCode herunterladen](https://code.visualstudio.com/)
-  * [Calva Plugin installieren](https://marketplace.visualstudio.com/items?itemName=betterthantomorrow.calva)
+  * [Calva Plugin installieren](https://marketplace.visualstudio.com/items?itemName=betterthantomorrow.calva) Zur Installation oben auf den grünen Button ("Install") klicken. 
 
 ## Editor einrichten
 
-Wir verwenden hier VS Code bzw. VS Codium mit dem Plugin "Calva" (links weiter
-unten). Dann starten wir eine REPL und verbinden den Editor damit. Das klappt
+Wir verwenden hier VS Code bzw. VS Codium mit dem Plugin "Calva". Dann starten wir eine REPL und verbinden den Editor damit. Das klappt
 besonders gut mit entsprechend konfiguriertem Editor, weshalb wir uns hier kurz
 die Zeit nehmen.
 
@@ -54,6 +53,12 @@ aktuellen Code vom Cursor in die REPL.)
 * `C-c right`: Schiebt die schließende Klammer einen Ausdruck weiter nach rechts.
 * `C-c left`: Schiebt die schließende Klammer einen Ausdruck zurück nach links.
 * `C-c C-d`: Hat man aus Versehen eine Endlosschleife erzeugt, bricht man den letzten Ausdruck mit diesem Kürzel wieder ab.
+
+Um die Kürzel zu installieren, öffnet ihr in VSCode unter Preferences die Keyboard Shortcuts. Oben rechts findet ihr ein Symbol, mit dem ihr die Konfigurationsdatei öffnen könnt. 
+
+![image](img/shortcuts.png)
+
+Dort könnt ihr die folgenden Einträge hinzufügen.
 
 ```json
 [
@@ -81,7 +86,7 @@ aktuellen Code vom Cursor in die REPL.)
         "key": "ctrl+c left",
         "command": "paredit.barfSexpForward",
         "when": "calva:keybindingsEnabled && editorTextFocus && editorLangId == 'clojure' && editorLangId == 'clojure' && paredit:keyMap =~ /original|strict/"
-    },
+    }
 ]
 ```
 
