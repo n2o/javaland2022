@@ -22,8 +22,6 @@
 
 
 
-
-
 ;; Einen für Menschen lesbare Form der Ausgabe erhalten wir, indem wir auf 
 ;; `:out` zugreifen und das Ergebnis mit `println` ausgeben.
 (println (:out (sh "ls")))
@@ -67,6 +65,38 @@
 
 
 
+;; Für curl gibt es in Babashka auch einen Wrapper, der den Umgang etwas 
+;; erleichtert und uns erlaubt idiomatischeren Clojure Code zu schreiben.
+
+;; Der Wrapper liegt im Namespace babbashka.curl und kann mit
+;; require geladen werden. 
+
+(require '[babashka.curl :as curl])
+
+;; Der Namespace hat fertige Clojure Funktionen fur die Requests, die wir 
+;; mit curl erzeugen können, wie z.B. get, post, etc.
+
+(curl/get "http://www.rheinjug.de")
+
+;; Das Resultat des Aufrufs ist eine Clojure-Map, in der wir neben dem 
+;; Body auch zusätzliche Informationen über die Response 
+;; (z.B. den Statuscode) finden.
+
+(get-in (curl/get "http://www.rheinjug.de") [:headers "date"])
+
+;; Außerdem können wir dem Request auch zusätzliche Header über eine 
+;; Datenstruktur mitgeben
+
+(curl/get "http://www.rheinjug.de" {:headers {"DNT" "1"}})
+
+;; Fügen wir nun die Bestandteile zusammen:
+
+(defn ping []
+  ;; Schreibe hier den Code, der den Wert des Attributs "text"
+  ;; eines Pings auf Schnaq zurückliefert
+  )
+
+(println (ping)) ;; soll 🧙‍♂️ ausgeben
 
 
 ;; Führe das Skript nun auf der Konsole aus! Navigiere in deiner Shell in diesen
