@@ -86,7 +86,7 @@ aktuellen Code vom Cursor in die REPL.)
 ```
 
 
-== Team
+## Team
 
 * [@n2o](https://github.com/n2o), Christian Meter, Clojure UG Düsseldorf, Twitter: [cmeter_](https://twitter.com/cmeter_)
 * [@bendisposto](https://github.com/bendisposto), Jens Bendisposto, rheinjug, Twitter: [jbendisposto](https://twitter.com/jbendisposto)
