@@ -15,17 +15,17 @@
         "-name" glob
         "-type" "f"))))
 
-(defn md5 [size file]
-  (-> (process ["head" "-n" size file])
-      (process ["md5"]) 
-      :out 
-      slurp))
-
 (defn sha [bits file]
   (-> (sh "shasum" "-b" (str "-a" bits) file)
       :out
       (str/split #" ")
       first))
+
+(defn md5 [size file]
+  (-> (process ["head" "-n" size file])
+      (process ["md5"])
+      :out
+      slurp))
 
 (defn candidates-by [f files]
   (->> files
@@ -57,9 +57,9 @@
               (doseq [f fs] (println f))
               (println))))))))
 
-(let [[directory pattern] *command-line-args*]
+(let [[directory glob] *command-line-args*]
   (if (= 2 (count *command-line-args*))
-    (scan-for-duplicates! directory pattern)
+    (scan-for-duplicates! directory glob)
     (do
       (.println *err* "Expected Arguments: folder filematcher (e.g. ~ '*.pdf')")
       (java.lang.System/exit -1))))
