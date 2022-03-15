@@ -4,8 +4,8 @@
 ;; Hier fragen wir die Meetup-API an, um zunächst von einer JUG die Events zu 
 ;; laden und zu verarbeiten. Danach wollen wir mehrere JUGs bei Meetup abfragen,
 ;; um eine Liste von 
-(require '[cheshire.core :as json])  ;; Um eine JSON-Antwort zu parsen
-(require '[clojure.java.shell :refer [sh]])
+(require '[cheshire.core :as json] ; Um eine JSON-Antwort zu parsen
+         '[clojure.java.shell :refer [sh]])  
 
 
 ;; Formatstrings funktionieren genauso wie wir es auch aus anderen Programmier-
