@@ -17,7 +17,9 @@
 
 (defn md5 [size file]
   (-> (process ["head" "-n" size file])
-      (process ["md5"]) :out slurp))
+      (process ["md5"]) 
+      :out 
+      slurp))
 
 (defn sha [bits file]
   (-> (sh "shasum" "-b" (str "-a" bits) file)
@@ -29,7 +31,7 @@
   (fn [files]
     (->> files
          (group-by f)
-         (remove (fn [[size vs]] (= 1 (count vs))))
+         (remove (fn [[_size files]] (= 1 (count files))))
          (map second))))
 
 (def candidates-by-size (candidates-by-fn fs/size))
@@ -41,11 +43,11 @@
 (defn iprintln [& text])
 
 (defn scan-for-duplicates! [dir glob]
-  (let [by-size (candidates-by-size (load-files dir glob))
-        partitions (count by-size)]
-    (iprintln "Eliminated files with unique size. Starting detail scan on" partitions "partitions.")
-    (doseq [[idx files] (map vector (map inc (range)) by-size)]
-      (iprintln "Analyzing" idx "/" partitions)
+  (let [files-by-size (candidates-by-size (load-files dir glob))
+        no-of-partitions (count files-by-size)]
+    (iprintln "Eliminated files with unique size. Starting detail scan on" no-of-partitions "partitions.")
+    (doseq [[idx files] (map vector (map inc (range)) files-by-size)]
+      (iprintln "Analyzing" idx "/" no-of-partitions)
       (let [by-md5 (candidates-by-md5 files)
             partitions (count by-md5)]
         (iprintln " ** Eliminated files with unique partial md5 hashcode. Starting detail scan on" partitions "partitions.")
