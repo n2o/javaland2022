@@ -1,4 +1,7 @@
 #!/usr/bin/env bb
+;; Sucht in einem Verzeichnis nach Duplikaten gemäß eines regulären Ausdrucks.
+;;
+;; Beispielaufruf: ./04_duplikate_finden.clj duplicates '*'
 
 (require '[babashka.fs :as fs]
          '[babashka.process :refer [process]]
@@ -52,9 +55,9 @@
               (doseq [f fs] (println f))
               (println))))))))
 
-
-(if (= 2 (count *command-line-args*))
-  (apply scan-for-duplicates! *command-line-args*)
-  (do
-    (.println *err* "Expected Arguments: Folder Filematcher (e.g. *.pdf)")
-    (java.lang.System/exit -1)))
+(let [[directory pattern] *command-line-args*]
+  (if (= 2 (count *command-line-args*))
+    (scan-for-duplicates! directory pattern)
+    (do
+      (.println *err* "Expected Arguments: folder filematcher (e.g. ~ '*.pdf')")
+      (java.lang.System/exit -1))))
