@@ -131,7 +131,8 @@
 (->> [{:name "christian"}
       {:name "jens"}
       {:name "björn"}]
-     (sort-by :name) reverse)
+     (sort-by :name) 
+     reverse)
 
 
 
