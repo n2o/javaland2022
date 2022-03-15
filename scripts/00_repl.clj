@@ -1,4 +1,5 @@
-(ns javaland.repl)
+;; Willkommen im ersten Skript des Babashka Workshops!
+
 
 ;; REPL-Koch Session inspiriert von der Clojure UG Bonn
 (def 🐔 '🐔)
@@ -93,36 +94,30 @@
   (+ 1 2)
   (* 2 (inc 2))
 
-  (def square1
-    (fn [n]
-      (* n n)))
-  (square1 4)
-
-
-  (defn square2
-    [n]
+  (defn square [n]
     (* n n))
-  (square2 4)
+  (square 4)
 
-  (def square3 #(* % %))
-  (square3 4)
+  (def square2 #(* % %))
+  (square2 4)
 
   ;; Threading Macros - Wende Funktionen nacheinander an und verwende jeweils
   ;; das Ergebnis der Funktion davor als Eingabe für die nächste Funktion.
   (-> 42 inc)
 
   🔥
+  (🔥 🥔)
+  (🔥 🥚)
+  (🔥 🌽)
+  (🔥 🐮)
 
 
   🔪
+  (🔪 🎂)
+  (🔥 (🔪 🐮))
+  (-> 🐮 🔪 🔥)
 
 
-
-
-  ;; Lazy Sequences
-  (set! *print-length* 20)
-
-  (range)
 
 
   ;;;; Collections

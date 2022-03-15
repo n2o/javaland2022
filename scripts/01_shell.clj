@@ -68,12 +68,12 @@
 ;; Für curl gibt es in Babashka auch einen Wrapper, der den Umgang etwas 
 ;; erleichtert und uns erlaubt idiomatischeren Clojure Code zu schreiben.
 
-;; Der Wrapper liegt im Namespace babbashka.curl und kann mit
+;; Der Wrapper liegt im Namespace babashka.curl und kann mit
 ;; require geladen werden. 
 
 (require '[babashka.curl :as curl])
 
-;; Der Namespace hat fertige Clojure Funktionen fur die Requests, die wir 
+;; Der Namespace hat fertige Clojure Funktionen für die Requests, die wir 
 ;; mit curl erzeugen können, wie z.B. get, post, etc.
 
 (curl/get "http://www.rheinjug.de")
