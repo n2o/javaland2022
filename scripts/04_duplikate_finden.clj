@@ -2,30 +2,102 @@
 ;; Sucht in einem Verzeichnis nach Duplikaten gemäß eines regulären Ausdrucks.
 ;;
 ;; Beispielaufruf: ./04_duplikate_finden.clj duplicates '*'
+;; Ergebnis: 
+;; ============================================
+;; Duplicate(s) of duplicates/rheinjug:
+;;
+;; duplicates/ClojureUG
+;;
+;; -----------------------------------------------------------------------------
+;; Das Finale
+;;
+;; Nun wird es etwas spannender. Wir wollen hier ein Skript entwickeln,
+;; welches innerhalb eines Verzeichnisses nach Duplikaten sucht. Diese Duplikate
+;; können anhand verschiedener Funktionen gefunden werden. Wir wollen hierfür
+;; die Hashes der Dateien vergleichen. 
+
+;; Ziel ist es hier in dem Skript die angegebenen Funktionen zu füllen. Dabei 
+;; geht es nur um Shellbefehle und Interaktion verschiedener Prozesse. Den
+;; Babashka- (bzw. Clojure-)Code lassen wir hier im Repo einfach liegen.
+;; Los geht's!
 
 (require '[babashka.fs :as fs]
          '[babashka.process :refer [process]]
          '[clojure.string :as str]
          '[clojure.java.shell :refer [sh]])
 
+;; Diese Funktion bekommt ein directory übergeben, in der die Plagiate gefunden
+;; werden sollen. Das zweite ist ein glob, welches anhand eines Patterns die zu 
+;; untersuchenden Dateien definiert. Rufe hier die Shell-Funktion `find` auf, 
+;; welche die Parameter `dir` und `glob` verwendet. Wenn deine Funktion grob das
+;; tut was wir hier haben wollen, müsste der Vergleich `true` ergeben.
+;;
+;; Gib _nur_ Dateien aus, keine Verzeichnisse.
 (defn load-files [dir glob]
   (str/split-lines
-   (:out
-    (sh "find" dir
-        "-name" glob
-        "-type" "f"))))
+   "" ;; hier mit `sh` den `find`-Befehl aufrufen zum Auflisten aller Dateien Verzeichnis
+   ))
 
+(= (load-files "./scripts/duplicates" "*")
+   ["./scripts/duplicates/rheinjug" "./scripts/duplicates/ClojureUG"])
+
+
+
+
+
+
+
+
+
+;; Berechnen wir nun den sha-Hash einer übergebenen Datei. Rufe dafür `shasum` 
+;; mit der angegeben Anzahl von Bits auf und berechne den SHA-Wert der Datei.
+;; Hierbei soll nur der Hash zurückgegeben werden. Es gibt dafür wieder einen
+;; Test.
 (defn sha [bits file]
-  (-> (sh "shasum" "-b" (str "-a" bits) file)
-      :out
-      (str/split #" ")
-      first))
+  ;; ...
+  )
 
+(= (sha 256 "./scripts/duplicates/ClojureUG")
+   "ea06d7b51ad4f70db151d0af4a1a3acbef73a1a44fb06de08b55bea5f702d756")
+
+
+
+
+
+
+
+
+
+
+;; In Babashka gibt es nicht nur `sh`, sondern auch `process`, was einen Wrapper
+;; um java.lang.ProcessBuilder darstellt. Einzelne Prozesse können so ineinander
+;; gepiped werden. Hier ein Beispiel:
+
+(-> (process ["ls"])
+    (process ["grep" "README"]) :out slurp)
+
+;; liefert "README.md\n". Das Shell-Äquivalent wäre: `ls | grep README`
+;;
+;; Nun soll der erste Prozess mit `head` die ersten `size` Zeilen aus `file` 
+;; holen und diese in einen zweiten Process `md5` pipen. 
 (defn md5 [size file]
-  (-> (process ["head" "-n" size file])
-      (process ["md5"])
-      :out
-      slurp))
+  ;; ...
+  )
+
+(= (md5 1024 "./scripts/duplicates/rheinjug")
+   "1f5a6c105bb963e939aa3160866557f4\n")
+
+
+
+
+
+;; Nun sollte das Programm funktionieren! Versuche den Aufruf aus dem oberen
+;; Teil der Datei und schau, ob du Duplikate erkennen kannst.
+;;
+;; Weiter unten folgt nun eine ziemlich imperative Lösung das Problem anzugehen.
+;; Wir arbeiten noch an weiteren Möglichkeiten :-) An dieser Stelle muss aber 
+;; nicht weiter verstanden werden, was hier passiert, keine Sorge. Dafür habt
+;; ihr nun genügend Zeit Clojure und Babashka zu lernen 🎉
 
 (defn candidates-by [f files]
   (->> files
