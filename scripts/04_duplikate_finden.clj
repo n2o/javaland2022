@@ -27,18 +27,15 @@
       (str/split #" ")
       first))
 
-(defn candidates-by-fn [f]
-  (fn [files]
-    (->> files
-         (group-by f)
-         (remove (fn [[_size files]] (= 1 (count files))))
-         (map second))))
+(defn candidates-by [f files]
+  (->> files
+       (group-by f)
+       (remove (fn [[_size files]] (= 1 (count files))))
+       (map second)))
 
-(def candidates-by-size (candidates-by-fn fs/size))
-
-(def candidates-by-md5 (candidates-by-fn (partial md5 1024)))
-
-(def candidates-by-sha (candidates-by-fn (partial sha 256)))
+(def candidates-by-size (partial candidates-by fs/size))
+(def candidates-by-md5 (partial candidates-by (partial md5 1024)))
+(def candidates-by-sha (partial candidates-by (partial sha 256)))
 
 (defn iprintln [& text])
 
