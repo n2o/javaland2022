@@ -17,14 +17,17 @@
       (process ["md5"]) :out slurp))
 
 (defn sha [bits file]
-  (first (str/split
-          (:out (sh "shasum" "-b" (str "-a" bits) file))
-          #" ")))
+  (-> (sh "shasum" "-b" (str "-a" bits) file)
+      :out
+      (str/split #" ")
+      first))
 
 (defn candidates-by-fn [f]
   (fn [files]
-    (map second (remove (fn [[size vs]] (= 1 (count vs)))
-                        (group-by f files)))))
+    (->> files
+         (group-by f)
+         (remove (fn [[size vs]] (= 1 (count vs))))
+         (map second))))
 
 (def candidates-by-size (candidates-by-fn fs/size))
 
