@@ -99,6 +99,8 @@
 ;; nicht weiter verstanden werden, was hier passiert, keine Sorge. Dafür habt
 ;; ihr nun genügend Zeit Clojure und Babashka zu lernen 🎉
 
+(def print-status false)
+
 (defn candidates-by [f files]
   (->> files
        (group-by f)
@@ -109,7 +111,7 @@
 (def candidates-by-md5 (partial candidates-by (partial md5 1024)))
 (def candidates-by-sha (partial candidates-by (partial sha 256)))
 
-(defn iprintln [& text])
+(defn iprintln [& text] (when print-status (apply println text))) 
 
 (defn scan-for-duplicates! [dir glob]
   (let [files-by-size (candidates-by-size (load-files dir glob))
