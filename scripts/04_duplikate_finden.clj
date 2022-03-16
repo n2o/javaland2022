@@ -38,8 +38,12 @@
    "" ;; hier mit `sh` den `find`-Befehl aufrufen zum Auflisten aller Dateien Verzeichnis
    ))
 
-(= (load-files "./scripts/duplicates" "*")
-   ["./scripts/duplicates/rheinjug" "./scripts/duplicates/ClojureUG"])
+
+(comment
+  (= (load-files "./scripts/duplicates" "*")
+     ["./scripts/duplicates/rheinjug" "./scripts/duplicates/ClojureUG"])
+  )
+
 
 
 
@@ -57,8 +61,10 @@
   ;; ...
   )
 
-(= (sha 256 "./scripts/duplicates/ClojureUG")
-   "ea06d7b51ad4f70db151d0af4a1a3acbef73a1a44fb06de08b55bea5f702d756")
+(comment
+  (= (sha 256 "./scripts/duplicates/ClojureUG")
+     "ea06d7b51ad4f70db151d0af4a1a3acbef73a1a44fb06de08b55bea5f702d756")
+  )
 
 
 
@@ -73,8 +79,10 @@
 ;; um java.lang.ProcessBuilder darstellt. Einzelne Prozesse können so ineinander
 ;; gepiped werden. Hier ein Beispiel:
 
-(-> (process ["ls"])
-    (process ["grep" "README"]) :out slurp)
+(comment
+  (-> (process ["ls"])
+      (process ["grep" "README"]) :out slurp)
+  )
 
 ;; liefert "README.md\n". Das Shell-Äquivalent wäre: `ls | grep README`
 ;;
@@ -84,8 +92,11 @@
   ;; ...
   )
 
-(= (md5 1024 "./scripts/duplicates/rheinjug")
-   "1f5a6c105bb963e939aa3160866557f4\n")
+(comment
+  (= (md5 1024 "./scripts/duplicates/rheinjug")
+     "1f5a6c105bb963e939aa3160866557f4\n")
+  )
+
 
 
 
@@ -132,9 +143,12 @@
               (doseq [f fs] (println f))
               (println))))))))
 
-(let [[directory glob] *command-line-args*]
-  (if (= 2 (count *command-line-args*))
-    (scan-for-duplicates! directory glob)
-    (do
-      (.println *err* "Expected Arguments: folder filematcher (e.g. ~ '*.pdf')")
-      (java.lang.System/exit -1))))
+(defn -main [args]
+  (let [[directory glob] args]
+    (if (= 2 (count args))
+      (scan-for-duplicates! directory glob)
+      (do
+        (.println *err* "Expected Arguments: folder filematcher (e.g. ~ '*.pdf')")
+        (java.lang.System/exit -1)))))
+
+(-main *command-line-args*)
