@@ -21,6 +21,12 @@ sondern um das gemeinsame Lernen und Verstehen.
 Fangen wir zuerst damit an den Editor einzurichten und starten dann mit den
 Scripts im Ordner `scripts`.
 
+### Video
+
+Jens ist uns per Video zugeschalten. Wer mit ihm sprechen möchte bzw. den Code zeigen möchte, kann sich hier mit ihm verbinden:
+
+https://bbb.cs.hhu.de/b/chr-0dx-183-shh
+
 ## Voraussetzungen
 
 * babashka ([Quickstart](https://github.com/babashka/babashka#quickstart), [Installation](https://github.com/babashka/babashka#installation))
