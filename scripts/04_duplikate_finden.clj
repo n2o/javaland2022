@@ -99,7 +99,7 @@
 ;; nicht weiter verstanden werden, was hier passiert, keine Sorge. Dafür habt
 ;; ihr nun genügend Zeit Clojure und Babashka zu lernen 🎉
 
-(def print-status false)
+(def print-status true)
 
 (defn candidates-by [f files]
   (->> files
@@ -114,6 +114,7 @@
 (defn iprintln [& text] (when print-status (apply println text))) 
 
 (defn scan-for-duplicates! [dir glob]
+  (iprintln "Starting scan of" dir)
   (let [files-by-size (candidates-by-size (load-files dir glob))
         no-of-partitions (count files-by-size)]
     (iprintln "Eliminated files with unique size. Starting detail scan on" no-of-partitions "partitions.")
