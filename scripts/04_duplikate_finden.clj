@@ -86,9 +86,9 @@
 
 ;; liefert "README.md\n". Das Shell-Äquivalent wäre: `ls | grep README`
 ;;
-;; Nun soll der erste Prozess mit `head` die ersten `size` Zeilen aus `file` 
+;; Nun soll der erste Prozess mit `head` die ersten `no-of-lines` Zeilen aus `file` 
 ;; holen und diese in einen zweiten Process `md5` pipen. 
-(defn md5 [size file]
+(defn md5 [no-of-lines file]
   ;; ...
   )
 
