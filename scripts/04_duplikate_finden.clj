@@ -124,7 +124,7 @@
             partitions (count by-md5)]
         (iprintln " ** Eliminated files with unique partial md5 hashcode. Starting detail scan on" partitions "partitions.")
         (doseq [[idx files] (map vector (map inc (range)) by-md5)]
-          (iprintln "Analyzing sup partition" idx "/" partitions)
+          (iprintln "Analyzing sub-partition" idx "/" partitions)
           (let [by-sha (candidates-by-sha files)]
             (doseq [[ff & fs] by-sha]
               (println "============================================")
