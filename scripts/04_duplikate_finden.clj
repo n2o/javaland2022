@@ -41,8 +41,8 @@
 
 (comment
   (= (load-files "./scripts/duplicates" "*")
-     ["./scripts/duplicates/rheinjug" "./scripts/duplicates/ClojureUG"])
-  )
+     ["./scripts/duplicates/rheinjug" "./scripts/duplicates/ClojureUG" "./scripts/duplicates/ClojureRocks"])
+  nil)
 
 
 
@@ -64,7 +64,7 @@
 (comment
   (= (sha 256 "./scripts/duplicates/ClojureUG")
      "ea06d7b51ad4f70db151d0af4a1a3acbef73a1a44fb06de08b55bea5f702d756")
-  )
+  nil)
 
 
 
@@ -82,7 +82,7 @@
 (comment
   (-> (process ["ls"])
       (process ["grep" "README"]) :out slurp)
-  )
+  nil)
 
 ;; liefert "README.md\n". Das Shell-Äquivalent wäre: `ls | grep README`
 ;;
@@ -95,7 +95,7 @@
 (comment
   (= (md5 1024 "./scripts/duplicates/rheinjug")
      "1f5a6c105bb963e939aa3160866557f4\n")
-  )
+  nil)
 
 
 
