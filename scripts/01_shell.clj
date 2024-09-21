@@ -34,7 +34,7 @@
 ;; Mit `sh` können wir auch andere Befehle auf der Konsole ausführen, bspw. 
 ;; `curl`. 
 ;;
-;; Rufe mit curl eine API auf, bspw. https://api.schnaq.com/ping.
+;; Rufe mit curl eine API auf, bspw. https://api.app.schnaq.com/ping.
 
 
 
